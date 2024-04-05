@@ -1,0 +1,115 @@
+<div class="register-form">
+  <form name="form" #f="ngForm" (ngSubmit)="f.form.valid && onSubmit()">
+    <div class="form-group">
+      <label>User Name</label>
+      <input type="text" class="form-control" name="username" [(ngModel)]="form.username" minlength="3" maxlength="20"
+        required pattern="[a-zA-Z ]*" #username="ngModel"
+        [ngClass]="{ 'is-invalid': f.submitted && username.errors }" />
+      @if (f.submitted && username.errors){
+      <div class="invalid-feedback">
+        @if (username.errors['required']){
+        <div>Username is required</div>
+        }@if (username.errors['minlength']){
+        <div>Username should be atleast 3 character length</div>
+        }@if (username.errors['maxlength']){
+        <div>Username must be atmost 20 character length</div>
+        }@if (username.errors['pattern']){
+        <div>Username must be alphabetic</div>}
+      </div>
+      }
+    </div>
+    <!-- email validation starts -->
+
+    <div class="form-group">
+      <label>Email</label>
+      <input type="email" class="form-control" name="email" [(ngModel)]="form.email" required email #email="ngModel"
+        [ngClass]="{ 'is-invalid': f.submitted && email.errors }">
+      @if (f.submitted && email.errors) {
+      <div class="invalid-feedback">
+        @if (email.errors['required'])
+        { <div>Email is required</div> }
+        @if (email.errors['email'])
+        { <div>Email is invalid</div> }
+      </div>
+      }
+    </div>
+
+    <!-- adress starts -->
+
+    <div class="form-group">
+      <label>Address</label>
+      <input type="text" 
+      class="form-control"
+       name="address" 
+       [(ngModel)]="form.address"
+        required 
+        #address="ngModel" 
+        [ngClass]="{ 'is-invalid': f.submitted && address.errors }" />
+      @if (f.submitted && address.errors){
+      <div class="invalid-feedback">
+        @if (address.errors['required']){
+        <div>address is required</div>
+        }
+      </div>
+      }
+    </div>
+
+
+    <!-- date of birth starts -->
+    <div class="form-group">
+  <label>Date of Birth</label>
+  <input type="date" 
+  class="form-control"
+   name="dob" [(ngModel)]="form.dob" 
+   required #dob="ngModel" 
+   [ngClass]="{ 'is-invalid': f.submitted && dob.errors }">
+  @if (f.submitted && dob.errors) {
+      <div class="invalid-feedback">
+          @if (dob.errors['required']) { <div>Date of Birth is required</div> }
+          @if (dob.errors['pattern']) { <div>Invalid date format. Please use YYYY-MM-DD</div> }
+      </div>
+  }
+</div>
+
+
+    <!-- password starts -->
+    <div class="form-group">
+      <label>Password</label>
+      <input type="password" class="form-control" name="password" [(ngModel)]="form.password" required minlength="6"
+        maxlength="40" pattern="^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,20}$" #password="ngModel"
+        [ngClass]="{ 'is-invalid': f.submitted && password.errors }">
+      @if (f.submitted && password.errors){
+      <div class="invalid-feedback">
+        @if (password.errors['required']){<div>password is required</div>}
+        @if(password.errors['minlength']){<div>must be at least 6 characters</div>}
+        @if(password.errors['maxlength']){<div>must be atmost 20 characters</div>}
+        @if(password.errors['pattern']){<div>password mustbe the combination of of alphabets, numbers & special characters</div>}
+
+      </div>}
+    </div>
+
+ <!-- phone validation -->
+ <div class="form-group">
+  <label>Phone Number</label>
+  <input type="tel" class="form-control" name="phone" [(ngModel)]="form.phone" minlength="10" maxlength="12"
+      required pattern="[0-9]*" #phone="ngModel"
+      [ngClass]="{ 'is-invalid': f.submitted && phone.errors }" />
+  @if (f.submitted && phone.errors){
+  <div class="invalid-feedback">
+      @if (phone.errors['required']){
+      <div>Phone number is required</div>
+      }@if (phone.errors['minlength']){
+      <div>Phone number should be at least 10 digits long</div>
+      }@if (phone.errors['maxlength']){
+      <div>Phone number must be at most 12 digits long</div>
+      }@if (phone.errors['pattern']){
+      <div>Phone number must contain only numbers</div>}
+  </div>
+  }
+</div>
+
+    <button type="submit">Save</button><br>
+    <button type="button" (click)="onReset(f)" >Reset</button>
+
+  </form>
+</div>
